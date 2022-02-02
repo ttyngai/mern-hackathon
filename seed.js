@@ -15,6 +15,7 @@ const Item = require('./models/item');
     {name: 'Sides', sortOrder: 50},
     {name: 'Desserts', sortOrder: 60},
     {name: 'Drinks', sortOrder: 70},
+    {name: 'Pastries', sortOrder: 80},
   ]);
 
   await Item.deleteMany({});
