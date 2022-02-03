@@ -14,6 +14,10 @@ export default function NewOrderPage({ user, setUser }) {
   const [activeCat, setActiveCat] = useState('');
   const [cart, setCart] = useState(null);
   const categoriesRef = useRef([]);
+
+  async function handleAddToOrder(itemId) {
+    alert(`add item: ${itemId}`);
+  }
   
   useEffect(function() {
     async function getItems() {
@@ -48,6 +52,7 @@ export default function NewOrderPage({ user, setUser }) {
       </aside>
       <MenuList
         menuItems={menuItems.filter(item => item.category.name === activeCat)}
+        handleAddToOrder={handleAddToOrder}
       />
       <OrderDetail order={cart} />
     </main>
