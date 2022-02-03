@@ -11,28 +11,20 @@ import UserLogOut from '../../components/UserLogOut/UserLogOut';
 export default function NewOrderPage({ user, setUser }) {
   const [menuItems, setMenuItems] = useState([]);
   const [activeCat, setActiveCat] = useState('');
-  // Obtain a ref object
   const categoriesRef = useRef([]);
-
-  // useEffect(function() {
-  //   console.log('NewOrderPage rendered');
-  // });
   
   useEffect(function() {
     async function getItems() {
       const items = await itemsAPI.getAll();
-      categoriesRef.current = items.reduce((cats, item) => {
+      categoriesRef.current = items.reduce((acc, item) => {
         const cat = item.category.name;
-        return cats.includes(cat) ? cats : [...cats, cat]
+        return acc.includes(cat) ? acc : [...acc, cat]
       }, []);
-      setActiveCat(categoriesRef.current[1]);
       setMenuItems(items);
+      setActiveCat(items[0].category.name);
     }
     getItems();
   }, []);
-  // the empty dependency array above will result in 
-  // the function running after the FIRST render
-  // only
 
   return (
     <main className="NewOrderPage">
