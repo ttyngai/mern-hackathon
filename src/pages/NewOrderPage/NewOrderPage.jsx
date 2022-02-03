@@ -19,6 +19,11 @@ export default function NewOrderPage({ user, setUser }) {
     const cart = await ordersAPI.addItemToCart(itemId);
     setCart(cart);
   }
+
+  async function handleChangeQty(itemId, newQty) {
+    const updatedCart = await ordersAPI.setItemQtyInCart(itemId, newQty);
+    setCart(updatedCart);
+  }
   
   useEffect(function() {
     async function getItems() {
@@ -55,7 +60,7 @@ export default function NewOrderPage({ user, setUser }) {
         menuItems={menuItems.filter(item => item.category.name === activeCat)}
         handleAddToOrder={handleAddToOrder}
       />
-      <OrderDetail order={cart} />
+      <OrderDetail handleChangeQty={handleChangeQty} order={cart} />
     </main>
   );
 }
