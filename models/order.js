@@ -34,7 +34,21 @@ orderSchema.virtual('totalQty').get(function() {
 });
 
 orderSchema.virtual('orderId').get(function() {
-  return this._id.slice(-6).toUpperCase();
+  return this.id.slice(-6).toUpperCase();
 });
+
+orderSchema.statics.getCart = function(userId) {
+  // 'this' refers to the Order model
+  return this.findOneAndUpdate(
+    // query obj
+    {user: userId, isPaid: false},
+    // update obj
+    {user: userId},
+    // options obj
+    // upsert option creates the doc if it doesn't exist!
+    // new option will make sure the updated doc is returned
+    {upsert: true, new: true}
+  );
+};
 
 module.exports = mongoose.model('Order', orderSchema);
