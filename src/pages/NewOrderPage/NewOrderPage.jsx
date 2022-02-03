@@ -16,7 +16,8 @@ export default function NewOrderPage({ user, setUser }) {
   const categoriesRef = useRef([]);
 
   async function handleAddToOrder(itemId) {
-    alert(`add item: ${itemId}`);
+    const cart = await ordersAPI.addItemToCart(itemId);
+    setCart(cart);
   }
   
   useEffect(function() {

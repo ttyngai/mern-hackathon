@@ -51,4 +51,19 @@ orderSchema.statics.getCart = function(userId) {
   );
 };
 
+orderSchema.methods.addItemToCart = async function(itemId) {
+  // 'this' refers to the 'cart' (unpaid order)
+  const cart = this;
+  const lineItem = cart.lineItems.find(lineItem => lineItem.item._id.equals(itemId));
+  if (lineItem) {
+    // The item is already in the cart, increase the qty!
+    lineItem.qty += 1;
+  } else {
+    // Not in cart, lets add the item!
+    const item = await mongoose.model('Item').findById(itemId);
+    cart.lineItems.push({ item });
+  }
+  return cart.save();
+};
+
 module.exports = mongoose.model('Order', orderSchema);
