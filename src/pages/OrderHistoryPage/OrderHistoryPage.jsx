@@ -11,9 +11,8 @@ export default function OrderHistoryPage({ user, setUser }) {
         <Link to="/orders/new" className="button btn-sm">NEW ORDER</Link>
         <UserLogOut user={user} setUser={setUser} />
       </aside>
-
-
-
+      <OrderList/>
+      
     </main>
   );
 }
